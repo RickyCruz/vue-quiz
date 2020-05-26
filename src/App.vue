@@ -17,10 +17,27 @@ import QuestionBox from './components/QuestionBox.vue'
 
 export default {
   name: 'App',
+
   components: {
     Header,
     QuestionBox
-  }
+  }, 
+
+  data() {
+    return {
+      questions: []
+    }
+  },
+
+  mounted() {
+    fetch('https://opentdb.com/api.php?amount=10', { method: 'GET' })
+      .then((response) => {
+        return response.json();
+      })
+      .then(jsonData => {
+        this.questions = jsonData.results;
+      });
+  },
 }
 </script>
 
